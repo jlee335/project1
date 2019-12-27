@@ -1,7 +1,9 @@
 package com.example.project1;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.project1.ui.main.AddContact;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -12,10 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.example.project1.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
+
+    public void buttonDo(){
+        Intent intent = new Intent(this, AddContact.class);
+        startActivity(intent); // intent 를 통해 새 activity 에 접속?
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                buttonDo();
             }
         });
     }
