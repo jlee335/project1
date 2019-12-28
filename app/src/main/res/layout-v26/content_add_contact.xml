@@ -45,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
+        android:onClick="press_cancel"
         android:text="@string/cancel"
         app:layout_constraintBottom_toBottomOf="@+id/button2"
         app:layout_constraintEnd_toStartOf="@+id/button2" />

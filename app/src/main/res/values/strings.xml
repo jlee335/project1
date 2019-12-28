@@ -11,5 +11,6 @@
     <string name="cancel">취소</string>
     <string name="phone_Number">전화번호</string>
     <string name="name">이름</string>
+    <string name="title_activity_contact__details">Contact_Details</string>
 
 </resources>

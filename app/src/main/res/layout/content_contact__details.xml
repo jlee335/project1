@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Contact_Details"
+    tools:showIn="@layout/activity_contact__details">
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="303dp"
+        android:layout_height="60dp"
+        android:text="Name"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.247" />
+
+    <TextView
+        android:id="@+id/phone_number"
+        android:layout_width="303dp"
+        android:layout_height="60dp"
+        android:text="phone_number"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/Name"
+        app:layout_constraintTop_toBottomOf="@+id/Name"
+        app:layout_constraintVertical_bias="0.034" />
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="304dp"
+        android:layout_height="61dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/Name"
+        app:layout_constraintEnd_toEndOf="@+id/Name"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/Name"
+        app:layout_constraintTop_toTopOf="@+id/Name"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editNumber"
+        android:layout_width="304dp"
+        android:layout_height="61dp"
+        android:ems="10"
+        android:inputType="phone"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_number"
+        app:layout_constraintEnd_toEndOf="@+id/phone_number"
+        app:layout_constraintStart_toStartOf="@+id/phone_number"
+        app:layout_constraintTop_toTopOf="@+id/phone_number" />
+
+    <Button
+        android:id="@+id/editNameButton"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="16dp"
+        android:text="EDIT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/editName"
+        app:layout_constraintTop_toTopOf="@+id/Name" />
+
+    <Button
+        android:id="@+id/editNumberButton"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:layout_marginEnd="16dp"
+        android:text="EDIT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/phone_number"
+        app:layout_constraintTop_toTopOf="@+id/phone_number" />
+</androidx.constraintlayout.widget.ConstraintLayout>
