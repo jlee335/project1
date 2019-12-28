@@ -4,11 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 
 public class IOcustom {
     public void writeToFile(String data, Context context) {
@@ -23,32 +25,28 @@ public class IOcustom {
     }
 
     public String readFromFile(Context context) {
-
-        String ret = "";
-
-        try {
-            InputStream inputStream = context.openFileInput("Contacts.json");
-
-            if (inputStream != null) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ((receiveString = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(receiveString); //line by line 으로 파일 읽기. string 으로 돌려받기.
+        String res = new String();
+        try{
+        FileInputStream fis = context.openFileInput("Contacts.json");
+            InputStreamReader inputStreamReader = new InputStreamReader(fis, StandardCharsets.UTF_8);
+            StringBuilder stringBuilder = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                String line = reader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line).append('\n');
+                    line = reader.readLine();
                 }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
+                res = stringBuilder.toString();
+            } catch (IOException e) {
+                // Error occurred when opening raw file for reading.
+                Log.e("FILE ERROR","File read failed");
+                res = null;
             }
-        } catch (FileNotFoundException e) {
-            ret = null;
-            //Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            ret = null;
-            Log.e("login activity", "Can not read file: " + e.toString());
+
+        }catch(FileNotFoundException e){
+            Log.e("FILE ERROR","Contacts.json does not exist!!");
+            res = null;
         }
-        return ret;
+        return res;
     }
 }

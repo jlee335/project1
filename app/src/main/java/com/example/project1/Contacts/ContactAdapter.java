@@ -1,15 +1,16 @@
-package com.example.project1;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.project1.Contacts;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project1.R;
 
 import java.util.List;
 
@@ -21,33 +22,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView personName;
         public TextView phoneNumber;
         public ImageView personImg;
         // contact 에 필요한 세가지 정보를 준다.
-        @Override
-        public void onClick(View view){
-            int pos = getAdapterPosition();
-            if (pos != RecyclerView.NO_POSITION) {
-                // pos 정보를 새 activity 로 옮겨주자.
-                Intent intent = new Intent(view.getContext(), Contact_Details.class);
-                intent.putExtra(EXTRA_MESSAGE,pos);
-                view.getContext().startActivity(intent); // intent 를 통해 새 activity 에 접속
-            }
-
-
-            // activity 를 옮김과 동시에, 새 activity 에 변수를 넘기고 싶을 때!
-        }
-        @Override
-        public boolean onLongClick(View view){
-            //"EDIT MODE" 로 만들어 동시삭제 기능을 넣자.
-
-            return true;
-        }
-        //ViewHolder 에 press 기능 추가!!!!!!!!!!!!!!
-
-
 
         public ViewHolder(View itemView){ //Constructor for ViewHolder
             super(itemView);
@@ -55,7 +34,41 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
             phoneNumber = (TextView) itemView.findViewById(R.id.person_number);
             personImg = (ImageView) itemView.findViewById(R.id.person_photo);
             // 인터페이스랑 대충 연결하기...
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        // pos 정보를 새 activity 로 옮겨주자.
+                        Log.d("RECYCLE:PRESSED","You have pressed - "+pos);
+                        Intent intent = new Intent(view.getContext(), Contact_Details.class);
+                        intent.putExtra(EXTRA_MESSAGE,pos);
+                        view.getContext().startActivity(intent); // intent 를 통해 새 activity 에 접속
+                    }
+                    // activity 를 옮김과 동시에, 새 activity 에 변수를 넘기고 싶을 때!
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+                @Override
+                public boolean onLongClick(View view){
+                    //"EDIT MODE" 로 만들어 동시삭제 기능을 넣자.
+
+                    return true;
+                }
+            });
+
+
         }
+
+
+
+
+
+        //ViewHolder 에 press 기능 추가!!!!!!!!!!!!!!
+
+
+
+
     }
     public ContactAdapter(List<Contact> contacts) {
         mcontacts = contacts;

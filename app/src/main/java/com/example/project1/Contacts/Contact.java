@@ -1,21 +1,15 @@
-package com.example.project1;
+package com.example.project1.Contacts;
 
-import android.widget.ImageView;
 
 public class Contact {
     private String name;
     private String number;
-    private ImageView image;
-
 
     public String getName(){
         return name;
     }
     public String getNumber(){
         return number;
-    }
-    public ImageView getImage(){
-        return image;
     }
 
 
