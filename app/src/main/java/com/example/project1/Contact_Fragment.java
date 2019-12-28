@@ -1,5 +1,6 @@
 package com.example.project1;
 
+import android.app.Activity;
 import android.content.Context;
 
 import java.io.BufferedReader;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.google.gson.Gson;
+
+import static com.example.project1.MyApplication.getAppContext;
 
 public class Contact_Fragment extends Fragment {
 
@@ -55,7 +58,7 @@ public class Contact_Fragment extends Fragment {
 
 
         //JSON --> List<Contact> 변환
-        String json = iocustom.readFromFile(getContext());
+        String json = iocustom.readFromFile(getAppContext());
         if(json == null){
             contacts.add(tmpcontact);
             contacts.add(tmpcontact);

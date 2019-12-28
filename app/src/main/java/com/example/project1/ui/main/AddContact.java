@@ -30,6 +30,8 @@ import java.io.OutputStreamWriter;
 import java.util.Collections;
 import java.util.List;
 
+import static com.example.project1.MyApplication.getAppContext;
+
 public class AddContact extends AppCompatActivity {
 
 
@@ -57,6 +59,10 @@ public class AddContact extends AppCompatActivity {
     }
 
     public void press_save(View view){
+
+        Contact tmpcontact = new Contact("Jay Lee","01054375220");
+
+
         IOcustom iocustom = new IOcustom();
         Intent intent = new Intent(this, MainActivity.class);
 
@@ -68,21 +74,26 @@ public class AddContact extends AppCompatActivity {
 
         Contact ncont = new Contact(n_name,n_addr);
 
+
+
         //새로운 contact 를 만들었으니, 이제 저장하자
         Gson gson = new Gson(); //gson object 지정
-        List<Contact> contacts = new ArrayList<Contact>();
-        String json = iocustom.readFromFile(getApplicationContext()); //파일 열기
+        List<Contact> contacts = new ArrayList<>();
+        String json = iocustom.readFromFile(getAppContext()); //파일 열기
         if(json == null){
-            json = null;
+            Log.e("login activity","Non-existing DATABASE");
+            contacts.add(ncont);
         }else{
             Contact[] array = gson.fromJson(json, Contact[].class); //json 에서 얻어가기
             Collections.addAll(contacts,array);
+            contacts.add(ncont); //List 에서 추가
         }
 
-        contacts.add(ncont); //List 에서 추가
 
-        json = new Gson().toJson(contacts); //리스트를 json 으로 만들기
-        iocustom.writeToFile(json,getApplicationContext()); // 파일에 덮어쓰기
+
+        json = gson.toJson(contacts); //리스트를 json 으로 만들기
+
+        iocustom.writeToFile(json,getAppContext()); // 파일에 덮어쓰기
 
         //LOAD JSON FILE
         startActivity(intent); //main 으로 복귀
