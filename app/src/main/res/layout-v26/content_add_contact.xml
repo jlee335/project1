@@ -14,31 +14,31 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
         android:layout_marginBottom="20dp"
+        android:autofillHints=""
         android:ems="10"
+        android:hint="이름"
         android:inputType="textPersonName"
-        android:text="@string/name"
         app:layout_constraintBottom_toTopOf="@+id/typeaddr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        android:autofillHints="" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/typeaddr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
+        android:autofillHints=""
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/phone_Number"
+        android:hint="전화번호"
+        android:inputType="phone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:autofillHints="" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"

@@ -1,94 +1,176 @@
 package com.example.project1;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Contact_Details extends AppCompatActivity {
+    boolean inEdit;
+    MyApplication app;
 
-    private void writeToFile(String data, Context context) {
-        // Exception 이 안 뜨면, Contacts.json 에 data string 저장. contexts 는 이 앱으로 준다.
-        try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput("Contacts.json", Context.MODE_PRIVATE));
-            outputStreamWriter.write(data);
-            outputStreamWriter.close();
+    int pos;
+    TextView name;
+    TextView number;
+    EditText n_name;
+    EditText n_number;
+
+    //여기서, Toolbar 의 Menu 를 edit_normal_mode_normal_mode.xml 로 교체하고 싶다.
+    //그러므로, 여기서 이것을 override 한다
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        if(inEdit){
+            getMenuInflater().inflate(R.menu.edit_edit_mode, menu);
+        }else{
+            getMenuInflater().inflate(R.menu.edit_normal_mode, menu);
         }
-        catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
+        return true;
     }
 
-    private String readFromFile(Context context) {
+    //Menu Item 선택 시 어떻게 반응하나.
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(inEdit){
+            switch (item.getItemId()) {
+                case R.id.okMenu:
+                    //Visibility 를 바꿔주자
+                    n_name.setVisibility(View.INVISIBLE);
+                    n_number.setVisibility(View.INVISIBLE);
+                    name.setVisibility(View.VISIBLE);
+                    number.setVisibility(View.VISIBLE);
 
-        String ret = "";
+                    String newName = n_name.getText().toString();
+                    String newNumber = n_number.getText().toString();
+                    Contact newcont = new Contact(newName,newNumber);
+                    List<Contact> getlist = app.getContacts();
+                    getlist.set(pos,newcont);
 
-        try {
-            InputStream inputStream = context.openFileInput("Contacts.json");
+                    app.setContacts(getlist);//apply the edited stuff.
+                    //apply edit to new interface aswell.
+                    name.setText(newName);
+                    number.setText(newNumber);
 
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
+                    inEdit = false;
+                    invalidateOptionsMenu();
+                    return true;
 
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString); //line by line 으로 파일 읽기. string 으로 돌려받기.
-                }
+                case R.id.cancelMenu:
+                    //Visibility transfer
+                    n_name.setVisibility(View.INVISIBLE);
+                    n_number.setVisibility(View.INVISIBLE);
+                    name.setVisibility(View.VISIBLE);
+                    number.setVisibility(View.VISIBLE);
 
-                inputStream.close();
-                ret = stringBuilder.toString();
+                    //Restore text to DEFAULT values
+                    n_name.setText(name.getText());
+                    n_number.setText(name.getText());
+
+                    //mode variable change and reload menu.
+                    inEdit = false;
+                    invalidateOptionsMenu();
+                    return true;
+
+                default:
+                    // If we got here, the user's action was not recognized.
+                    // Invoke the superclass to handle it.
+                    return super.onOptionsItemSelected(item);
+            }
+
+        }else{
+            switch (item.getItemId()) {
+                case R.id.editMenu:
+                    //Visibility 를 바꿔주자
+                    n_name.setVisibility(View.VISIBLE);
+                    n_number.setVisibility(View.VISIBLE);
+                    name.setVisibility(View.INVISIBLE);
+                    number.setVisibility(View.INVISIBLE);
+                    inEdit = true;
+                    invalidateOptionsMenu();
+                    return true;
+
+                case R.id.deleteMenu:
+                    //1. Display "Are you sure?" pop-up screen
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("삭제하시겠습니까?");
+                    builder.setPositiveButton("아니요",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //아무것도 안함
+
+                                }
+                            });
+                    builder.setNegativeButton("예",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //지우고 밖으로 가자.
+                                    List<Contact> getlist = app.getContacts();
+                                    getlist.remove(pos);
+                                    app.setContacts(getlist);//apply the edited stuff.
+                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            });
+                    builder.show();
+                    return true;
+
+                default:
+                    // If we got here, the user's action was not recognized.
+                    // Invoke the superclass to handle it.
+                    return super.onOptionsItemSelected(item);
             }
         }
-        catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        }
-
-        return ret;
     }
 
     public static final String EXTRA_MESSAGE = "CONTACT_DATA";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        inEdit = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact__details);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Details");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        name = (TextView) findViewById(R.id.dispName);
+        number = (TextView) findViewById(R.id.dispNumber);
+        n_name = (EditText) findViewById(R.id.editName);
+        n_number = (EditText) findViewById(R.id.editNumber);
+
+
+
+        //초기화 상태는 editName editNumber 안보이게
+        n_name.setVisibility(View.INVISIBLE);
+        n_number.setVisibility(View.INVISIBLE);
+        app = (MyApplication) getApplicationContext();
 
 
         Intent intent = getIntent();
         // intent 를 가져옴
-        int pos = intent.getIntExtra(EXTRA_MESSAGE,0);
-        List<Contact> mcontacts = new ArrayList<Contact>();
-
-        // 세부사항 들여다보는 것이 성능이 중요한 일이 아니므로, 그냥 JSON 을 메모리에서 찾자...
-
-
-
-
-        //(**************************************************************(
-        // 여기서는 intent 를 받았다!
-
+        pos = intent.getIntExtra(EXTRA_MESSAGE,0);
+        List<Contact> mcontacts = new ArrayList<>();
+        mcontacts = app.getContacts();
+        Contact target = mcontacts.get(pos);
+        String load_name = target.getName();
+        String load_number = target.getNumber();
+        name.setText(load_name);
+        number.setText(load_number);
+        n_name.setText(load_name);
+        n_number.setText(load_number);
     }
+
 
 }

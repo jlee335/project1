@@ -30,16 +30,17 @@ import static com.example.project1.MyApplication.getAppContext;
 public class Contact_Fragment extends Fragment {
 
 
-    private Contact tmpcontact = new Contact("Jay Lee","01054375220");
+    private static Contact tmpcontact = new Contact("Jay Lee","01054375220");
+    MyApplication app;
 
     private RecyclerView mRecyclerView;
     private ContactAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Contact> contacts = new ArrayList<>();
 
-
-
-
+    public List<Contact> getContacts(){
+        return contacts;
+    }
 
     public Contact_Fragment() {
         // Required empty public constructor
@@ -47,6 +48,7 @@ public class Contact_Fragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        app = (MyApplication) getAppContext();
         IOcustom iocustom = new IOcustom();
 
         super.onCreate(savedInstanceState);
@@ -55,20 +57,7 @@ public class Contact_Fragment extends Fragment {
         //Context context = getContext();
         //String json = new Gson().toJson(contacts);
         //writeToFile(json,getContext());
-
-
-        //JSON --> List<Contact> 변환
-        String json = iocustom.readFromFile(getAppContext());
-        if(json == null){
-            contacts.add(tmpcontact);
-            contacts.add(tmpcontact);
-        }else{
-            Gson gson = new Gson();
-            Contact[] array = gson.fromJson(json, Contact[].class);
-            contacts = Arrays.asList(array);
-        }
-
-
+        contacts = app.getContacts();
     }
 
     @Override
