@@ -35,8 +35,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 Contact_Fragment cf = new Contact_Fragment();
                 return cf;
             case 1:
-                PlaceholderFragment placeholderFragment = PlaceholderFragment.newInstance(position + 1);
-                return placeholderFragment;
+                Gallery_Fragment gf = new Gallery_Fragment();
+                return gf;
             case 2:
                 PlaceholderFragment placeholderFragment2 = PlaceholderFragment.newInstance(position + 2);
                 return placeholderFragment2;
