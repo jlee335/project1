@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.project1.Contact_Fragment;
+import com.example.project1.Contacts.Contact_Fragment;
 import com.example.project1.R;
 
 /**

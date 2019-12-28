@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.project1.Contacts.Contact;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

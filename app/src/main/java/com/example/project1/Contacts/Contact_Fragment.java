@@ -1,29 +1,21 @@
-package com.example.project1;
+package com.example.project1.Contacts;
 
-import android.app.Activity;
-import android.content.Context;
-
-import java.io.BufferedReader;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import com.google.gson.Gson;
+
+import com.example.project1.IOcustom;
+import com.example.project1.MyApplication;
+import com.example.project1.R;
 
 import static com.example.project1.MyApplication.getAppContext;
 

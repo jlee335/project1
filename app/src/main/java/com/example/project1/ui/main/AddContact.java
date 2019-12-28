@@ -3,7 +3,7 @@ package com.example.project1.ui.main;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.project1.Contact;
+import com.example.project1.Contacts.Contact;
 import com.example.project1.MainActivity;
 import com.example.project1.IOcustom;
 

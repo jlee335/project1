@@ -1,4 +1,4 @@
-package com.example.project1;
+package com.example.project1.Contacts;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.project1.MainActivity;
+import com.example.project1.MyApplication;
+import com.example.project1.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +123,7 @@ public class Contact_Details extends AppCompatActivity {
                                     List<Contact> getlist = app.getContacts();
                                     getlist.remove(pos);
                                     app.setContacts(getlist);//apply the edited stuff.
-                                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                 }
                             });
