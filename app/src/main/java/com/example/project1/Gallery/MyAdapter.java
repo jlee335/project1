@@ -1,50 +1,52 @@
 package com.example.project1.Gallery;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 
-import com.example.project1.R;
+import java.util.List;
 
-public class MyAdapter extends BaseAdapter {
-    Context context;
-    int layout;
-    int img[];
-    LayoutInflater inf;
+public class MyAdapter extends BaseAdapter
+{
+    private List<Integer> mThumbIds;
+    private Context mContext;
 
-    public MyAdapter(Context context, int layout, int[] img) {
-        this.context = context;
-        this.layout = layout;
-        this.img = img;
-        inf = (LayoutInflater) context.getSystemService
-                (Context.LAYOUT_INFLATER_SERVICE);
+    public MyAdapter(List<Integer> mThumbIds, Context mContext)
+    {
+        this.mThumbIds = mThumbIds;
+        this.mContext = mContext;
     }
 
     @Override
     public int getCount() {
-        return img.length;
+        return mThumbIds.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return img[position];
+        return null;
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return mThumbIds.get(position);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView==null)
-            convertView = inf.inflate(layout, null);
-        ImageView iv = (ImageView)convertView.findViewById(R.id.imageView1);
-        iv.setImageResource(img[position]);
+        ImageView imageView = (ImageView) convertView;
 
-        return convertView;
+        if(imageView == null){
+            imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new GridView.LayoutParams(350,450));
+            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+
+        imageView.setImageResource(mThumbIds.get(position));
+
+        return imageView;
     }
 }
