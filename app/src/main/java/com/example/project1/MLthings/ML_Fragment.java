@@ -58,6 +58,7 @@ public class ML_Fragment extends Fragment {
 
         gv = (GridView)view.findViewById(R.id.gridViewML);
         gv.setAdapter(adapter);
+        //gv.setStretchMode(GridView.NO_STRETCH);
 
         class getdelegate implements Label_Image.AsyncDelegate{
             @Override

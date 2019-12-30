@@ -85,8 +85,6 @@ public class Label_Image {
         labelTask = labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
             @Override
             public void onSuccess(List<FirebaseVisionImageLabel> labels) {
-                Collections.sort(labels, new CustomComparator());
-                text[0] = labels.get(0).getText();
 
             }
         }).addOnFailureListener(new OnFailureListener() {

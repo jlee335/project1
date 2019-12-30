@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -52,7 +53,8 @@ public class MLAdapter extends BaseAdapter {
 
         ImageView iv =  (ImageView)convertView.findViewById(R.id.ML_ImageView);
         iv.setImageResource(img.get(position).getImResource());
-
+        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        convertView.getLayoutParams().height = convertView.getLayoutParams().width;
 
         TextView label = (TextView)convertView.findViewById(R.id.ML_Label_ID);
         label.setText(img.get(position).getLabel());
