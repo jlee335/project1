@@ -1,4 +1,4 @@
-package com.example.project1;
+package com.example.project1.Gallery;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.example.project1.R;
 
 public class MyAdapter extends BaseAdapter {
     Context context;
