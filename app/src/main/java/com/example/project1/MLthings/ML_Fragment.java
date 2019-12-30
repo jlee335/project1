@@ -1,5 +1,6 @@
 package com.example.project1.MLthings;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.GridView;
 import androidx.fragment.app.Fragment;
 
 import com.example.project1.MyApplication;
+import com.example.project1.MLthings.Label_Image.LabelAll;
+
 import com.example.project1.R;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 
@@ -18,8 +21,14 @@ import static com.example.project1.MyApplication.getAppContext;
 
 public class ML_Fragment extends Fragment {
 
-    MyApplication app;
-    List<ML_Image_Object> img;
+    private MyApplication app;
+    private List<ML_Image_Object> img;
+    private MLAdapter adapter;
+    private GridView gv;
+    public MLAdapter getAdapter(){
+        return adapter;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,8 @@ public class ML_Fragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.ml_gallery,container,false);
@@ -37,28 +48,30 @@ public class ML_Fragment extends Fragment {
         img = app.getImg();
 
         //여기 이 List 에서, Label 이 되어있지 않은 친구들을 Label 시켜버리자!!!!
-        for(ML_Image_Object iter : img){
-            // ML 모델로 인해 Label 이 정해지지 않은 경우!
-            if(!iter.isLabelled()){
-                int imdir = iter.getImResource();
-                FirebaseVisionImage fbimage = Label_Image.load_img(app.getApplicationContext(),imdir);
-                String nlabel = Label_Image.LabelImg(fbimage);
-                iter.setLabel(nlabel);
-                iter.setLabelled(true);
-                // 이제, ML 을 돌려 Label 이 만들어졌고, setLabelled 도 True 로 지정했다.
-            }
-        }
+        //여기서 그냥 thread 를 만들어 관리할까.....
 
-
-        //img 리스트들이 있을 것이다.
-
-        MLAdapter adapter = new MLAdapter(
+        adapter = new MLAdapter(
                 getAppContext(),
                 R.layout.mlrow,
                 img);
 
-        GridView gv = (GridView)view.findViewById(R.id.gridViewML);
+
+        gv = (GridView)view.findViewById(R.id.gridViewML);
         gv.setAdapter(adapter);
+
+        class getdelegate implements Label_Image.AsyncDelegate{
+            @Override
+            public void asyncComplete(boolean success) {
+                adapter.notifyDataSetChanged();
+                gv.invalidateViews();
+            }
+        }
+        getdelegate as = new getdelegate();
+        LabelAll labelAll = new LabelAll(as);
+        labelAll.execute(img.toArray(new ML_Image_Object[0]));
+
+        //img 리스트들이 있을 것이다.
+
 
         return view;
     }

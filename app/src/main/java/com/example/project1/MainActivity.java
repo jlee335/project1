@@ -12,13 +12,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
-import com.example.project1.ui.main.SectionsPagerAdapter;
+import com.example.project1.ui.MainUI.SectionsPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    public void buttonDo(){
-        Intent intent = new Intent(this, AddContact.class);
-        startActivity(intent); // intent 를 통해 새 activity 에 접속?
+    public void buttonDo(int idx){
+        switch(idx){
+            case 0:
+                Intent intent = new Intent(this, AddContact.class);
+                startActivity(intent); // intent 를 통해 새 activity 에 접속?
+            case 1:
+                //무시
+            case 2:
+                //무시
+        }
+
     }
 
     @Override
@@ -32,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
 
         //TabLayout object (UI에 있는 것) 에 적용시키자
-        TabLayout tabs = findViewById(R.id.tabs);
+        final TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
         //FAB
@@ -41,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonDo();
+                buttonDo(tabs.getSelectedTabPosition());
             }
         });
     }

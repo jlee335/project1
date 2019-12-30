@@ -21,6 +21,7 @@ public class MyApplication extends Application {
     IOcustom iocustom;
     private List<ML_Image_Object> img = new ArrayList<>();
     private static ML_Image_Object tmp = new ML_Image_Object(R.drawable.a,null,false);
+    private static ML_Image_Object tmp2 = new ML_Image_Object(R.drawable.city,null,false);
 
     public void onCreate(){
         super.onCreate();
@@ -34,11 +35,11 @@ public class MyApplication extends Application {
         img.add(tmp);
         img.add(tmp);
         img.add(tmp);
-        img.add(tmp);
-        img.add(tmp);
-        img.add(tmp);
-        img.add(tmp);
-        img.add(tmp);
+        img.add(tmp2);
+        img.add(tmp2);
+        img.add(tmp2);
+        img.add(tmp2);
+        img.add(tmp2);
 
         /*IMAGE DATABASE 로딩 끝*/
 

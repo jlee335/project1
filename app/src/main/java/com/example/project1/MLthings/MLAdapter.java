@@ -26,6 +26,11 @@ public class MLAdapter extends BaseAdapter {
                 (Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public void updateImg(List<ML_Image_Object> nimg){
+        this.img = nimg;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return img.size();

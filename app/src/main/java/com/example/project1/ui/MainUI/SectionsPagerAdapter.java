@@ -1,4 +1,4 @@
-package com.example.project1.ui.main;
+package com.example.project1.ui.MainUI;
 
 import android.content.Context;
 
