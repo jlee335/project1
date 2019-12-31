@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.project1.Contacts.Contact_Fragment;
-import com.example.project1.Gallery_Fragment;
+import com.example.project1.Gallery.Gallery_Fragment;
 import com.example.project1.MLthings.ML_Fragment;
 import com.example.project1.R;
 
