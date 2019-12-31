@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.project1.Contacts.Contact;
+import com.example.project1.MLthings.ML_Image_Object;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -18,10 +19,33 @@ public class MyApplication extends Application {
     private List<Contact> contacts = new ArrayList<>();
     Gson gson;
     IOcustom iocustom;
+    private List<ML_Image_Object> img = new ArrayList<>();
+    private static ML_Image_Object tmp = new ML_Image_Object(R.drawable.a,null,false);
+    private static ML_Image_Object tmp2 = new ML_Image_Object(R.drawable.city,null,false);
 
     public void onCreate(){
-        //앱 lifecycle (전체 사용 기간) 시작할 때 자동으로 실행되고,
         super.onCreate();
+
+        // 이미지의 List 로 구현을 하겠습니다.
+
+        /*IMAGE DATABASE 로딩!!!!*/
+
+        // 이것은 임시방편
+        img.add(tmp);
+        img.add(tmp);
+        img.add(tmp);
+        img.add(tmp);
+        img.add(tmp2);
+        img.add(tmp2);
+        img.add(tmp2);
+        img.add(tmp2);
+        img.add(tmp2);
+
+        /*IMAGE DATABASE 로딩 끝*/
+
+
+
+        //앱 lifecycle (전체 사용 기간) 시작할 때 자동으로 실행되고,
         MyApplication.context = getApplicationContext();
         iocustom = new IOcustom();
         gson = new Gson();
@@ -39,7 +63,11 @@ public class MyApplication extends Application {
     public List<Contact> getContacts(){
         return contacts;
     }
+    public List<ML_Image_Object> getImg(){return img;}
 
+    public void setImg (List<ML_Image_Object> newImage){
+        img = newImage;
+    }
     // set일 때 수정, get 일 때 수정안함. Mainactivity 는 앱이랑 꺼지지 않는다.
 
     public void setContacts(List<Contact> contacts){

@@ -1,4 +1,4 @@
-package com.example.project1.ui.main;
+package com.example.project1.ui.MainUI;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

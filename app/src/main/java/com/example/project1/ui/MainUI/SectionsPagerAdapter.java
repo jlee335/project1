@@ -1,4 +1,4 @@
-package com.example.project1.ui.main;
+package com.example.project1.ui.MainUI;
 
 import android.content.Context;
 
@@ -9,7 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.project1.Contacts.Contact_Fragment;
-import com.example.project1.Gallery.Gallery_Fragment;
+import com.example.project1.Gallery_Fragment;
+import com.example.project1.MLthings.ML_Fragment;
 import com.example.project1.R;
 
 /**
@@ -39,8 +40,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 Gallery_Fragment gf = new Gallery_Fragment();
                 return gf;
             case 2:
-                PlaceholderFragment placeholderFragment2 = PlaceholderFragment.newInstance(position + 2);
-                return placeholderFragment2;
+                ML_Fragment mf = new ML_Fragment();
+                return mf;
             default:
                 return null;
         }

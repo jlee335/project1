@@ -22,7 +22,6 @@ import static com.example.project1.MyApplication.getAppContext;
 public class Contact_Fragment extends Fragment {
 
 
-    private static Contact tmpcontact = new Contact("Jay Lee","01054375220");
     MyApplication app;
 
     private RecyclerView mRecyclerView;

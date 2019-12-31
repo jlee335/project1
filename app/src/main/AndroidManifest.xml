@@ -3,6 +3,7 @@
     package="com.example.project1">
 
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".MyApplication"
@@ -12,13 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".Contacts.Contact_Details"
             android:label="@string/title_activity_contact__details"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.main.AddContact"
+            android:name=".Contacts.AddContact"
             android:label="@string/title_activity_add_contact"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -36,6 +38,11 @@
             android:name=".Gallery.FullView"
             android:theme="@style/fullViewTheme"
             />
+
+        <meta-data
+            android:name="com.google.firebase.ml.vision.DEPENDENCIES"
+            android:value="label" />
+        <!-- To use multiple models: android:value="label,model2,model3" -->
     </application>
 
 </manifest>
