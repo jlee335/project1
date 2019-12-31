@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 //무시
         }
-
     }
 
     @Override
