@@ -17,6 +17,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.bumptech.glide.Glide;
 import com.example.project1.R;
 
@@ -62,6 +64,7 @@ public class MLAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+
         if (convertView == null) convertView = inf.inflate(layout, parent, false);
         ImageView iv = (ImageView) convertView.findViewById(R.id.ML_ImageView);
         Bitmap myBitmap;
@@ -73,7 +76,7 @@ public class MLAdapter extends BaseAdapter {
             Glide
                 .with(context)
                 .load(Uri.fromFile(imgFile))
-                .thumbnail(0.1f)
+                .thumbnail(0.01f)
                 .into(iv);
 
         } else {
@@ -93,7 +96,7 @@ public class MLAdapter extends BaseAdapter {
     private class LoadImageTask extends AsyncTask<File,Integer,Void>{
         @Override
         protected Void doInBackground(File ... imgFile){
-            Bitmap myBitmap = BitmapFactory.decodeFile(imgFile[0].getAbsolutePath());
+            //Bitmap myBitmap = BitmapFactory.decodeFile(imgFile[0].getAbsolutePath());
             return null;
         }
         @Override

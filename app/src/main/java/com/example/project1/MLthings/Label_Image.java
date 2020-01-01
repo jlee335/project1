@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -98,9 +99,13 @@ public class Label_Image {
         List<FirebaseVisionImageLabel> results = labelTask.getResult();
 
         Collections.sort(results, new CustomComparator());
-        text[0] = results.get(0).getText();
+        if(results.size() == 0){
+            return "Unclassified";
+        }else{
+            text[0] = results.get(0).getText();
+            return text[0];
+        }
 
-        return text[0];
     }
 
     public interface AsyncDelegate{
@@ -111,6 +116,10 @@ public class Label_Image {
         private AsyncDelegate delegate;
         MyApplication app = (MyApplication)getAppContext();
         Map<String,String> cache = app.getCache();
+        Map<String,String> ncache = new HashMap<>();
+
+        // Cache --> HIT --> Ncache workflow
+        // This can destroy unused items of Cache :: by Deletion of image or label-change
 
 
         public LabelAll(AsyncDelegate delegate){
@@ -130,9 +139,10 @@ public class Label_Image {
                         iter.setLabel(nlabel);
                         iter.setLabelled(true);
                         data = nlabel;
-                        cache.put(iter.getImID(),data); // Add specific key to cache!
+                        ncache.put(iter.getImID(),data); // Add specific key to cache!
                     }else{
                         // Cache Key: id, Value: Label
+                        ncache.put(iter.getImID(),data);
                         iter.setLabel(data);
                         iter.setLabelled(true);
                     }
@@ -149,7 +159,7 @@ public class Label_Image {
         @Override
         protected void onPostExecute(Void v){
             delegate.asyncComplete(true);
-            app.setCache(cache); // update existing cache after operation!
+            app.setCache(ncache); // update existing cache after operation!
             //return null;
         }
     }

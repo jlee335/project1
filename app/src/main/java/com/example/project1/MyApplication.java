@@ -89,13 +89,18 @@ public class MyApplication extends Application {
     public List<Contact> getContacts(){
         return contacts;
     }
-    public List<ML_Image_Object> getImg(){return img;}
+    public List<ML_Image_Object> getImg(){
+        load();
+        return img;
+
+    }
 
 
     // 이미지들을 외장 database 로부터 가져오기 위해 이것을 한다. Async 로 돌릴 수 있으면 그리 하자...
     private void load(){
         imdatas = Extern_Access.getGalleryImage(getApplicationContext());
         Log.d("IMDATASIZE",imdatas.size() +"");
+        img.clear();
         for(IMfile m : imdatas){
             ML_Image_Object mlo = new ML_Image_Object(R.drawable.city,null,false);
             mlo.setPath(m.path);
@@ -109,9 +114,6 @@ public class MyApplication extends Application {
         load();
     }
 
-    public void setImg (List<ML_Image_Object> newImage){
-        img = newImage;
-    }
     // set일 때 수정, get 일 때 수정안함. Mainactivity 는 앱이랑 꺼지지 않는다.
 
 
@@ -124,6 +126,9 @@ public class MyApplication extends Application {
     }
 
     public Map<String, String> getCache(){
+        String jsonCache = iocustom.readFromFileCache(getAppContext());
+        Type ssmap = new TypeToken<Map<String,String>>(){}.getType();
+        this.cache = gson.fromJson(jsonCache, ssmap); //json 에서 얻어가기
         return this.cache;
     }
 
