@@ -10,8 +10,24 @@
         android:id="@+id/img_full"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher_round"
-        android:scaleType="fitXY"
-        />
+        android:background="@android:color/background_dark"
+        android:backgroundTint="@android:color/background_dark"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/imName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="2dp"
+        android:text="TextView"
+        android:textColor="@android:color/background_light"
+        android:textSize="18sp" />
 
 </RelativeLayout>
