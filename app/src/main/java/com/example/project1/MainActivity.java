@@ -34,6 +34,7 @@ import static com.example.project1.MyApplication.getAppContext;
 
 public class MainActivity extends AppCompatActivity {
     private List<Contact> contacts = new ArrayList<>();
+    private int tabPosition;
 
     private Map<String, String> cache = new HashMap<>();
 
@@ -46,17 +47,17 @@ public class MainActivity extends AppCompatActivity {
     protected MyApplication app;
 
     public void buttonDo(int idx){
-        switch(idx) {
-            case 0:
-                Intent intent = new Intent(this, AddContact.class);
-                startActivity(intent); // intent 를 통해 새 activity 에 접속?
-            case 1:
-                //무시
-                Intent camIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        final Intent camIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+        if(idx == 0) {
+            Intent intent = new Intent(this, AddContact.class);
+            Log.e("TAB_PRESS", "0");
+            startActivity(intent); // intent 를 통해 새 activity 에 접속?
+        }else if(idx == 1) {
                 startActivity(camIntent);
-            case 2:
-                camIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                Log.e("TAB_PRESS", "1");
+        }else{
                 startActivity(camIntent);
+                Log.e("TAB_PRESS","2");
         }
     }
 
@@ -106,14 +107,15 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buttonDo(tabs.getSelectedTabPosition());
+                buttonDo(tabPosition);
             }
         });
 
-        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+        tabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager){
             @Override
             public void onTabSelected(TabLayout.Tab tab){
-                if(tabs.getSelectedTabPosition()!= 0){
+                tabPosition = tabs.getSelectedTabPosition();
+                if(tabPosition!= 0){
                     fab.setImageResource(R.drawable.ic_action_name);
                 }else{
                     fab.setImageResource(R.drawable.ic_action_add);

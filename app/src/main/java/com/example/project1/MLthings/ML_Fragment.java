@@ -191,6 +191,9 @@ public class ML_Fragment extends Fragment {
 
     private void applyfilter(List<ML_Image_Object> imgs, Set<String> selectionSet,Map<String,String> cache){
         // All image paths in cache
+        if(cache == null){
+            return;
+        }
         List<ML_Image_Object> filtImg = new ArrayList<>();
         for(ML_Image_Object img : imgs){
             String path = img.getImID();
@@ -218,30 +221,35 @@ public class ML_Fragment extends Fragment {
     private void loadLabelChips(LayoutInflater inflater){
         Set<String> labelSet = new HashSet<>();
         Map<String,String> cache = app.getCache();
-        for(String key : cache.values()){
-            labelSet.add(key);
+
+        if(cache != null){
+            for(String key : cache.values()){
+                labelSet.add(key);
+            }
+        }
+        chipGroup.removeAllViews();
+        if(cache != null){
+            for(final String labels : labelSet){
+                Chip chip = (Chip)inflater.inflate(R.layout.filterchip,chipGroup,false);
+                chip.setText(labels);
+                chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked){
+                            selectionSet.add(labels);
+                            Log.e("SELECTION"," :: "+selectionSet);
+                            applyfilter(img,selectionSet,app.getCache());
+                        }else{
+                            selectionSet.remove(labels);
+                            Log.e("SELECTION"," :: "+selectionSet);
+                            applyfilter(img,selectionSet,app.getCache());
+                        }
+                    }
+                });
+                chipGroup.addView(chip);
+            }
         }
 
-        chipGroup.removeAllViews();
-        for(final String labels : labelSet){
-            Chip chip = (Chip)inflater.inflate(R.layout.filterchip,chipGroup,false);
-            chip.setText(labels);
-            chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked){
-                        selectionSet.add(labels);
-                        Log.e("SELECTION"," :: "+selectionSet);
-                        applyfilter(img,selectionSet,app.getCache());
-                    }else{
-                        selectionSet.remove(labels);
-                        Log.e("SELECTION"," :: "+selectionSet);
-                        applyfilter(img,selectionSet,app.getCache());
-                    }
-                }
-            });
-            chipGroup.addView(chip);
-        }
     }
     private void ShowDialogBox(final ML_Image_Object img)
     {
