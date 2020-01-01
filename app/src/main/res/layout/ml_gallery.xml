@@ -1,46 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swiperefreshML"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/filterText"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:gravity="center|left"
-            android:text="Filters"
-            android:textAlignment="gravity"
-            android:textAllCaps="false"
-            android:textStyle="bold" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/labelChips"
+        <GridView
+            android:id="@+id/gridViewML"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:clipChildren="true"
+            android:clipToPadding="false"
+            android:columnWidth="100dp"
+            android:horizontalSpacing="0dp"
+            android:numColumns="auto_fit"
+            android:overScrollMode="always"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/invLayout"
+            tools:layout_conversion_absoluteHeight="688dp"
+            tools:layout_conversion_absoluteWidth="411dp" />
 
-    <GridView
-        android:id="@+id/gridViewML"
-        android:layout_width="match_parent"
-        android:layout_height="474dp"
-        android:clipChildren="true"
-        android:clipToPadding="false"
-        android:columnWidth="100dp"
-        android:horizontalSpacing="0dp"
-        android:numColumns="auto_fit"
-        android:overScrollMode="always"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="0dp"></GridView>
-</LinearLayout>
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:button="@color/common_google_signin_btn_text_dark_disabled"
+            android:checked="false"
+            android:contextClickable="true"
+            android:elevation="5dp"
+            android:outlineProvider="background"
+            android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textAllCaps="true"
+            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColorLink="@color/common_google_signin_btn_text_dark_focused"
+            android:textOff="Filters"
+            android:textOn="less"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/invLayout"
+            tools:layout_conversion_absoluteHeight="35dp"
+            tools:layout_conversion_absoluteWidth="88dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/invLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:backgroundTint="#00FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="43dp"
+            tools:layout_conversion_absoluteWidth="411dp">
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/labelChips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:clipToPadding="true"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="0dp"
+                tools:layout_conversion_absoluteWidth="411dp">
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

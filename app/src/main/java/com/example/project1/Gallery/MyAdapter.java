@@ -72,7 +72,7 @@ public class MyAdapter extends BaseAdapter
             Glide
                     .with(mContext)
                     .load(Uri.fromFile(imfile))
-                    .thumbnail(0.1f)
+                    .thumbnail(0.01f)
                     .into(imageView);
 
         } else {

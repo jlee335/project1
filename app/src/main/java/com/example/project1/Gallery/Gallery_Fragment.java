@@ -8,10 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -34,13 +37,9 @@ import static com.example.project1.MyApplication.getAppContext;
 public class Gallery_Fragment extends Fragment {
 
     MyApplication app;
+    SwipeRefreshLayout swl;
 
     private List<ML_Image_Object> img;
-
-    ArrayList<Integer> mImageIds = new ArrayList<>(Arrays.asList(
-            R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,
-            R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist,R.drawable.kaist
-    ));
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,16 +55,46 @@ public class Gallery_Fragment extends Fragment {
         img = app.getImg();
         View view = inflater.inflate(R.layout.fragment_gallery_,container,false);
 
-        GridView gridView = (GridView)view.findViewById(R.id.myGrid);
+
+        final GridView gridView = (GridView)view.findViewById(R.id.myGrid);
         gridView.setAdapter(new MyAdapter(R.layout.row,app,img));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ML_Image_Object item_pos = img.get(position);
-
                 ShowDialogBox(item_pos);
 
+            }
+        });
+
+        swl = (SwipeRefreshLayout) view.findViewById(R.id.swiperefreshGL);
+        swl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                img = app.getImg();
+                MyAdapter nAdapter = new MyAdapter(R.layout.row,app,img);
+                gridView.setAdapter(nAdapter);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run(){
+                        swl.setRefreshing(false);
+                    }
+                },300);
+
+            }
+        });
+
+        gridView.setOnScrollListener(new GridView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(AbsListView view, int ScrollState){
+                //super(gv.onScrollSt);
+            }
+            @Override
+            public void onScroll(AbsListView view,int firstVisibleItem,int ic,int vc){
+                if(gridView.getChildAt(0) != null){
+                    swl.setEnabled(gridView.getFirstVisiblePosition() == 0 && gridView.getChildAt(0).getTop()==0);
+                }
             }
         });
 
@@ -97,7 +126,6 @@ public class Gallery_Fragment extends Fragment {
         Glide
                 .with(getAppContext())
                 .load(Uri.fromFile(f1))
-                .thumbnail(0.1f)
                 .into(Image);
         //Image.setImageBitmap();
         Image.setOnClickListener(new View.OnClickListener() {

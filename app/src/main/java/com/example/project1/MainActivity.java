@@ -1,5 +1,6 @@
 package com.example.project1;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
@@ -44,18 +46,17 @@ public class MainActivity extends AppCompatActivity {
     protected MyApplication app;
 
     public void buttonDo(int idx){
-        switch(idx){
+        switch(idx) {
             case 0:
                 Intent intent = new Intent(this, AddContact.class);
                 startActivity(intent); // intent 를 통해 새 activity 에 접속?
             case 1:
                 //무시
+                Intent camIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(camIntent);
             case 2:
-                List<ML_Image_Object> k = app.getImg();
-                Snackbar.make(findViewById(R.id.view_pager), "size = " + k.size(),
-                        Snackbar.LENGTH_SHORT)
-                        .show();
-
+                camIntent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA);
+                startActivity(camIntent);
         }
     }
 
@@ -81,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},0);
+
         super.onCreate(savedInstanceState);
 
         app = (MyApplication)this.getApplicationContext();
@@ -98,12 +101,32 @@ public class MainActivity extends AppCompatActivity {
 
 
         //FAB
-        FloatingActionButton fab = findViewById(R.id.fab);
+        final FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 buttonDo(tabs.getSelectedTabPosition());
+            }
+        });
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+            @Override
+            public void onTabSelected(TabLayout.Tab tab){
+                if(tabs.getSelectedTabPosition()!= 0){
+                    fab.setImageResource(R.drawable.ic_action_name);
+                }else{
+                    fab.setImageResource(R.drawable.ic_action_add);
+                }
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab){
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab){
+
             }
         });
         // 이미지의 List 로 구현을 하겠습니다.
