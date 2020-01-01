@@ -8,28 +8,37 @@
     tools:context=".Contacts.Contact_Details"
     tools:showIn="@layout/activity_contact__details">
 
+
     <ImageView
         android:id="@+id/image"
+        android:background="#ffffff"
+        android:elevation="25dp"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile"/>
 
     <ImageView
+        android:background="#ffffff"
+        android:elevation="10dp"
         android:layout_width="50dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:src="@drawable/person"
         app:layout_constraintBottom_toBottomOf="@+id/editName"
         app:layout_constraintEnd_toStartOf="@+id/editName" />
 
     <ImageView
+        android:background="#ffffff"
+        android:elevation="10dp"
         android:layout_width="50dp"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:src="@drawable/phone"
         app:layout_constraintBottom_toBottomOf="@+id/dispNumber"
         app:layout_constraintEnd_toStartOf="@+id/dispNumber" />
 
     <TextView
+        android:background="#ffffff"
+        android:elevation="10dp"
         android:id="@+id/dispNumber"
         android:layout_width="303dp"
         android:layout_height="60dp"
@@ -43,6 +52,8 @@
         app:layout_constraintVertical_bias="0.034" />
 
     <EditText
+        android:background="#ffffff"
+        android:elevation="10dp"
         android:id="@+id/editName"
         android:layout_width="304dp"
         android:layout_height="61dp"
@@ -59,6 +70,8 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:background="#ffffff"
+        android:elevation="10dp"
         android:id="@+id/dispName"
         android:layout_width="303dp"
         android:layout_height="60dp"
@@ -72,6 +85,8 @@
         app:layout_constraintVertical_bias="0.465" />
 
     <EditText
+        android:background="#ffffff"
+        android:elevation="10dp"
         android:id="@+id/editNumber"
         android:layout_width="304dp"
         android:layout_height="61dp"
@@ -84,5 +99,6 @@
         app:layout_constraintEnd_toEndOf="@+id/dispNumber"
         app:layout_constraintStart_toStartOf="@+id/dispNumber"
         app:layout_constraintTop_toTopOf="@+id/dispNumber" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
