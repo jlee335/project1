@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.project1.R;
@@ -16,11 +19,15 @@ public class FullView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         setContentView(R.layout.activity_full_view);
 
         ImageView imageView = findViewById(R.id.img_full);
         String img_id = getIntent().getExtras().getString("img_id");
-
+        String filename = getIntent().getExtras().getString("filename");
+        TextView tv = findViewById(R.id.imName);
+        tv.setText(filename);
         File imfile = new File(img_id);
         Glide
                 .with(getBaseContext())

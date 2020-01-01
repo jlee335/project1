@@ -2,6 +2,8 @@ package com.example.project1.Gallery;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -83,12 +85,13 @@ public class Gallery_Fragment extends Fragment {
         Button btn_Full = dialog.findViewById(R.id.btn_full);
         Button btn_Close = dialog.findViewById(R.id.btn_close);
 
-        String title = img.getImID(); //제목은 나중에 따로 빼냄.
+        String path = img.getPath();
+        String title = path.substring(path.lastIndexOf("/")+1);
 
         //extracting name
 
         int index = title.indexOf("/");
-        String name = title.substring(index+1,title.length());
+        final String name = title.substring(index+1,title.length());
         Image_name.setText(name);
         File f1 = new File(img.getPath());
         Glide
@@ -97,6 +100,17 @@ public class Gallery_Fragment extends Fragment {
                 .thumbnail(0.1f)
                 .into(Image);
         //Image.setImageBitmap();
+        Image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), FullView.class);
+                i.putExtra("img_id",img.getPath());
+                i.putExtra("filename",name);
+                startActivity(i);
+            }
+        });
+
+
 
         btn_Close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,12 +125,12 @@ public class Gallery_Fragment extends Fragment {
 
                 Intent i = new Intent(getActivity(), FullView.class);
                 i.putExtra("img_id",img.getPath());
+                i.putExtra("filename",name);
                 startActivity(i);
             }
         });
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
     }
 }
 

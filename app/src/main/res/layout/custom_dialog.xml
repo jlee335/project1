@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:layout_margin="10dp"
-    >
+    android:background="@android:color/transparent"
+    android:backgroundTint="@android:color/transparent"
+    android:foregroundTint="@color/common_google_signin_btn_text_dark_disabled">
 
     <TextView
         android:id="@+id/txt_Image_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:gravity="center|left"
         android:text="Image Name"
-        android:gravity="center"
-        android:textSize="20sp"
 
-        />
+        android:textColor="?attr/colorBackgroundFloating"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/img"
@@ -24,34 +29,44 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="2dp"
         android:layout_marginTop="1dp"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@mipmap/ic_launcher_round" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@+id/img"
-        >
-        <Button
-            android:id="@+id/btn_full"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Full View"
-            android:textColor="#fff"
-            android:background="@color/colorPrimary"
-            />
+        android:background="@android:color/transparent"
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_close"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#000"
             android:text="Close"
             android:textColor="#fff"
-            android:background="#000"
-            android:layout_weight="1"
-            />
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="196dp" />
+
+        <Button
+            android:id="@+id/btn_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@color/colorPrimary"
+            android:text="Full View"
+            android:textColor="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_close"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="48dp"
+            tools:layout_conversion_absoluteWidth="196dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </RelativeLayout>

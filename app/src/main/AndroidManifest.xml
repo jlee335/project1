@@ -40,6 +40,7 @@
         <activity
             android:name=".Gallery.FullView"
             android:theme="@style/fullViewTheme"
+            android:parentActivityName=".MainActivity"
             />
 
         <meta-data
