@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swiperefreshGL"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <GridView
-        android:id="@+id/myGrid"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="true"
-        android:clipToPadding="false"
-        android:columnWidth="100dp"
-        android:horizontalSpacing="0dp"
-        android:numColumns="auto_fit"
-        android:overScrollMode="always"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="0dp" />
+        tools:context=".MainActivity">
 
-</RelativeLayout>
+        <GridView
+            android:id="@+id/myGrid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="true"
+            android:clipToPadding="false"
+            android:columnWidth="100dp"
+            android:horizontalSpacing="0dp"
+            android:numColumns="auto_fit"
+            android:overScrollMode="always"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="0dp" />
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+

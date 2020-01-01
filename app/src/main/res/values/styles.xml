@@ -20,7 +20,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.Light" />
 
-    <style name="fullViewTheme" parent="Theme.MaterialComponents.Light">
+    <style name="fullViewTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

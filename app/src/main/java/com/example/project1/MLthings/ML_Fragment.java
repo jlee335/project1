@@ -7,21 +7,28 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.project1.Gallery.FullView;
+import com.example.project1.Gallery.MyAdapter;
 import com.example.project1.MyApplication;
 import com.example.project1.MLthings.Label_Image.LabelAll;
 
@@ -46,6 +53,7 @@ public class ML_Fragment extends Fragment {
     private List<ML_Image_Object> img;
     private MLAdapter adapter;
     private GridView gv;
+    private SwipeRefreshLayout swl;
 
     private Set<String> selectionSet;
 
@@ -69,8 +77,11 @@ public class ML_Fragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.ml_gallery,container,false);
         chipGroup = (ChipGroup)view.findViewById(R.id.labelChips);
+        final View layout = view.findViewById(R.id.invLayout);
+
 
         img = app.getImg();
 
@@ -102,14 +113,78 @@ public class ML_Fragment extends Fragment {
                 loadLabelChips(inflater);
             }
         }
-        getdelegate as = new getdelegate();
+        final getdelegate as = new getdelegate();
         LabelAll labelAll = new LabelAll(as);
         labelAll.execute(img.toArray(new ML_Image_Object[0]));
+
+
 
         //Filter Action Start
         loadLabelChips(inflater);
         applyfilter(img,selectionSet,app.getCache());
+        swl = (SwipeRefreshLayout) view.findViewById(R.id.swiperefreshML);
+        swl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                img = app.getImg();
+                adapter = new MLAdapter(
+                        getAppContext(),
+                        R.layout.mlrow,
+                        img);
+                gv.setAdapter(adapter);
+                LabelAll nlabel = new LabelAll(as);
+                nlabel.execute(img.toArray(new ML_Image_Object[0]));
+                loadLabelChips(inflater);
 
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run(){
+                        swl.setRefreshing(false);
+                    }
+                },300);
+
+            }
+        });
+
+        gv.setOnScrollListener(new GridView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(AbsListView view, int ScrollState){
+                //super(gv.onScrollSt);
+            }
+            @Override
+            public void onScroll(AbsListView view,int firstVisibleItem,int ic,int vc){
+                if(gv.getChildAt(0) != null){
+                    swl.setEnabled(gv.getFirstVisiblePosition() == 0 && gv.getChildAt(0).getTop()==0);
+                }
+            }
+        });
+
+        //Get to Unpressed State
+        chipGroup.setVisibility(View.GONE);
+        layout.setBackgroundColor(Color.WHITE);
+
+        //Setting up Button Placement Constraints
+
+
+
+
+        ConstraintSet csOFF = new ConstraintSet();
+
+
+        ToggleButton toggle = (ToggleButton) view.findViewById(R.id.toggleButton);
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //layout.setBackgroundColor(Color.TRANSPARENT);
+                    chipGroup.setVisibility(View.VISIBLE);
+                } else {
+                    chipGroup.setVisibility(View.GONE);
+                    //layout.setBackgroundColor(Color.WHITE);
+                }
+            }
+        });
 
         return view;
     }
@@ -192,7 +267,6 @@ public class ML_Fragment extends Fragment {
         Glide
                 .with(getAppContext())
                 .load(Uri.fromFile(f1))
-                .thumbnail(0.1f)
                 .into(Image);
         //Image.setImageBitmap();
         Image.setOnClickListener(new View.OnClickListener() {
