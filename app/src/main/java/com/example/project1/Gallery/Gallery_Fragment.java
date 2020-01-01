@@ -55,7 +55,7 @@ public class Gallery_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_gallery_,container,false);
 
         GridView gridView = (GridView)view.findViewById(R.id.myGrid);
-        gridView.setAdapter(new MyAdapter(mImageIds,app));
+        gridView.setAdapter(new MyAdapter(R.layout.row,app,img));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

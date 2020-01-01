@@ -61,9 +61,8 @@ public class MLAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ContentResolver cr = context.getContentResolver();
-        if (convertView == null) convertView = inf.inflate(layout, parent, false);
 
+        if (convertView == null) convertView = inf.inflate(layout, parent, false);
         ImageView iv = (ImageView) convertView.findViewById(R.id.ML_ImageView);
         Bitmap myBitmap;
         //Transferring path -> Bitmap -> ImageView
@@ -89,6 +88,8 @@ public class MLAdapter extends BaseAdapter {
         return convertView;
     }
 
+
+    // Glide 가 너무 잘 되어서, 이게 필요할 지 미지수. Glide 에서 아마 Async 로 돌리는 것이 아닐까..
     private class LoadImageTask extends AsyncTask<File,Integer,Void>{
         @Override
         protected Void doInBackground(File ... imgFile){

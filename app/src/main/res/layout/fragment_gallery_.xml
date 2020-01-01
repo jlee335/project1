@@ -10,10 +10,13 @@
         android:id="@+id/myGrid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="true"
+        android:clipToPadding="false"
         android:columnWidth="100dp"
+        android:horizontalSpacing="0dp"
         android:numColumns="auto_fit"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
-        />
+        android:overScrollMode="always"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="0dp" />
 
 </RelativeLayout>
