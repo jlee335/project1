@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Contacts.Contact_Details"
-    tools:showIn="@layout/activity_contact__details">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <ImageView
         android:id="@+id/image"
+
         android:background="#ffffff"
         android:elevation="25dp"
         android:layout_width="match_parent"
@@ -77,12 +75,79 @@
         android:layout_height="60dp"
         android:text="Name"
         android:textSize="36sp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.465" />
+        app:layout_constraintTop_toTopOf="@+id/image"
+        app:layout_constraintVertical_bias="0.522"
+        tools:context=".Contacts.Contact_Details"
+        tools:showIn="@layout/activity_contact__details">
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:elevation="0dp"
+            android:src="@drawable/person"
+            app:layout_constraintBottom_toBottomOf="@+id/editName"
+            app:layout_constraintEnd_toStartOf="@+id/editName"
+            app:layout_constraintStart_toStartOf="@+id/imageView6" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:elevation="0dp"
+            android:src="@drawable/phone"
+            app:layout_constraintBottom_toBottomOf="@+id/dispNumber"
+            app:layout_constraintEnd_toStartOf="@+id/dispNumber" />
+
+        <TextView
+            android:id="@+id/dispNumber"
+            android:layout_width="303dp"
+            android:layout_height="60dp"
+            android:elevation="0dp"
+            android:text="phone_number"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/dispName"
+            app:layout_constraintTop_toBottomOf="@+id/dispName"
+            app:layout_constraintVertical_bias="0.034" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="304dp"
+            android:layout_height="61dp"
+            android:elevation="0dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="true"
+            android:textIsSelectable="true"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="@+id/dispName"
+            app:layout_constraintEnd_toEndOf="@+id/dispName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/dispName"
+            app:layout_constraintTop_toTopOf="@+id/dispName"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/dispName"
+            android:layout_width="303dp"
+            android:layout_height="60dp"
+            android:elevation="0dp"
+            android:text="Name"
+            android:textSize="36sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.255" />
 
     <EditText
         android:background="#ffffff"
@@ -99,6 +164,5 @@
         app:layout_constraintEnd_toEndOf="@+id/dispNumber"
         app:layout_constraintStart_toStartOf="@+id/dispNumber"
         app:layout_constraintTop_toTopOf="@+id/dispNumber" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
