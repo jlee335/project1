@@ -131,7 +131,13 @@ public class Label_Image {
                 // ML 모델로 인해 Label 이 정해지지 않은 경우!
                 if (!iter.isLabelled()) {
                     //1차. Cache 로부터 값 찾아가자.
-                    String data = cache.get(iter.getImID());
+                    String data;
+                    if(cache == null){
+                        data = null;
+                    }else{
+                        data = cache.get(iter.getImID());
+                    }
+
                     if(data == null){
                         String imdir = iter.getPath();
                         FirebaseVisionImage fbimage = Label_Image.load_img(getAppContext(), imdir);
