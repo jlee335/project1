@@ -5,13 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.PersistableBundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.project1.MainActivity;
@@ -24,7 +28,6 @@ import java.util.List;
 public class Contact_Details extends AppCompatActivity {
     boolean inEdit;
     MyApplication app;
-
     int pos;
     TextView name;
     TextView number;
@@ -175,6 +178,5 @@ public class Contact_Details extends AppCompatActivity {
         n_name.setText(load_name);
         n_number.setText(load_number);
     }
-
 
 }
